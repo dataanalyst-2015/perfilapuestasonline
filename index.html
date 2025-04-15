@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía Interactiva: Perfil del Apostador Online</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Estilo adicional para asegurar que los canvas tengan altura */
+        .chart-container {
+            position: relative;
+            height: 45vh; /* Aumentar altura para mejor visualización */
+            width: 100%;
+            margin-bottom: 2.5rem; /* Más espacio */
+        }
+        /* Estilo para las notas de insight */
+        .insight-text {
+            font-style: italic;
+            color: #a0aec0; /* Gris claro para texto secundario */
+            margin-top: 0.75rem;
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+            border-left: 3px solid #4a5568; /* Borde gris oscuro */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo para títulos de sección */
+        h2 {
+            border-bottom: 2px solid #4a5568; /* Borde gris oscuro */
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #e2e8f0; /* Texto gris muy claro */
+        }
+         /* Estilo para títulos de gráfico */
+         h3 {
+            color: #cbd5e0; /* Texto gris claro */
+         }
+         /* Estilo para el tooltip de Chart.js (opcional, Chart.js maneja bien el suyo) */
+        .chartjs-tooltip {
+            opacity: 1;
+            position: absolute;
+            background: rgba(0, 0, 0, .85); /* Fondo tooltip más oscuro */
+            color: white;
+            border-radius: 4px; /* Bordes más suaves */
+            padding: 8px 10px;
+            font-size: 12px;
+            transition: all .1s ease;
+            pointer-events: none;
+            transform: translate(-50%, 0);
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
+        }
+    </style>
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-900 p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto bg-gray-800 p-6 md:p-10 rounded-xl shadow-2xl border border-gray-700">
+
+        <h1 class="text-2xl md:text-3xl font-bold text-center text-yellow-400 mb-6">
+            Radiografía del Apostador Online en Argentina: Deportes vs. Casino
+        </h1>
+
+        <p class="text-center text-gray-300 mb-4">
+            Comparativa de perfiles entre Apostadores Online Totales (AOT), de Deportes (AOD) y de Casino (AOC).
+        </p>
+         <p class="text-center text-sm text-gray-400 mb-8">
+            Pasa el cursor sobre las barras para ver los porcentajes exactos.
+        </p>
+
+        <div class="text-center mb-10 p-5 bg-gray-700 rounded-lg shadow-md border border-gray-600">
+            <h2 class="text-xl font-semibold text-cyan-400 mb-3 !mt-0 !border-b-0">Universo Estimado</h2>
+            <div class="flex flex-wrap justify-center gap-6 md:gap-10">
+                <div class="text-center">
+                    <p class="text-3xl font-bold text-blue-400">2,6 M</p>
+                    <p class="text-sm text-gray-300">Total (AOT)</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-3xl font-bold text-cyan-400">1,7 M</p>
+                    <p class="text-sm text-gray-300">Deportes (AOD)</p>
+                </div>
+                 <div class="text-center">
+                    <p class="text-3xl font-bold text-yellow-400">1,8 M</p>
+                    <p class="text-sm text-gray-300">Casino (AOC)</p>
+                </div>
+            </div>
+             <p class="text-xs text-gray-500 mt-4">Nota: Existe solapamiento entre AOD y AOC.</p>
+        </div>
+
+
+        <h2 class="text-xl md:text-2xl font-bold text-yellow-400">1. Demografía Fundamental</h2>
+
+        <h3 class="text-lg font-semibold mt-4 mb-2">Género</h3>
+        <div class="chart-container bg-gray-700 p-4 rounded-lg border border-gray-600">
+            <canvas id="genderChart"></canvas>
+        </div>
+        <p class="insight-text">
+            <strong>Insight Clave:</strong> Fuerte sesgo masculino en Deportes (54.3% M) y femenino en Casino (58.7% F). El total (AOT) está más equilibrado (52.2% F).
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4 mb-2">Edad</h3>
+        <div class="chart-container bg-gray-700 p-4 rounded-lg border border-gray-600">
+            <canvas id="ageChart"></canvas>
+        </div>
+         <p class="insight-text">
+            <strong>Insight Clave:</strong> Deportes (AOD) concentra más usuarios en 25-34 años (35.1%). Casino (AOC) tiene una distribución más plana y algo más de peso en mayores de 45.
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4 mb-2">Nivel Socioeconómico (NSE)</h3>
+        <div class="chart-container bg-gray-700 p-4 rounded-lg border border-gray-600">
+            <canvas id="nseChart"></canvas>
+        </div>
+         <p class="insight-text">
+            <strong>Insight Clave:</strong> Diferencia notable. Deportes (AOD) tiene más NSE Alto (27.4%) y menos Bajo (45.7%) que el total. Casino (AOC) se concentra fuertemente en NSE Bajo (52.6%).
+        </p>
+
+         <h3 class="text-lg font-semibold mt-4 mb-2">Ubicación Geográfica</h3>
+        <div class="chart-container bg-gray-700 p-4 rounded-lg border border-gray-600">
+            <canvas id="locationChart"></canvas>
+        </div>
+         <p class="insight-text">
+            <strong>Insight Clave:</strong> Deportes (AOD) muestra una ligera mayor concentración en AMBA (60.5%). Casino (AOC) es muy similar al perfil total (AOT).
+        </p>
+
+         <h3 class="text-lg font-semibold mt-4 mb-2">Estado Civil</h3>
+        <div class="chart-container bg-gray-700 p-4 rounded-lg border border-gray-600">
+            <canvas id="maritalChart"></canvas>
+        </div>
+         <p class="insight-text">
+            <strong>Insight Clave:</strong> Perfiles muy similares entre los tres grupos. La soltería predomina (~45-46%).
+        </p>
+
+        <h2 class="text-xl md:text-2xl font-bold text-yellow-400">2. Educación y Empleo</h2>
+
+        <h3 class="text-lg font-semibold mt-4 mb-2">Nivel Educativo</h3>
+        <div class="chart-container bg-gray-700 p-4 rounded-lg border border-gray-600">
+            <canvas id="educationChart"></canvas>
+        </div>
+         <p class="insight-text">
+            <strong>Insight Clave:</strong> Deportes (AOD) tiende a un nivel educativo ligeramente superior (50.5% Terciario/Univ.). Casino (AOC) tiene la menor proporción en este nivel (47.4%).
+        </p>
+
+        <h3 class="text-lg font-semibold mt-4 mb-2">Situación Laboral</h3>
+        <div class="chart-container bg-gray-700 p-4 rounded-lg border border-gray-600">
+            <canvas id="employmentChart"></canvas>
+        </div>
+         <p class="insight-text">
+            <strong>Insight Clave:</strong> Deportes (AOD) registra la tasa de empleo más alta (83.3%). Casino (AOC) tiene la más baja (76.5%), correlacionando con NSE.
+        </p>
+
+
+        <h2 class="text-xl md:text-2xl font-bold text-yellow-400">3. Situación Económica</h2>
+
+        <h3 class="text-lg font-semibold mt-4 mb-2">Nivel de Ingresos</h3>
+        <div class="chart-container bg-gray-700 p-4 rounded-lg border border-gray-600">
+            <canvas id="incomeChart"></canvas>
+        </div>
+         <p class="insight-text">
+            <strong>Insight Clave:</strong> Refuerza los hallazgos de NSE. Deportes (AOD) se inclina al tramo Medio-Alto (43%). Casino (AOC) tiene mayor peso en Bajo (26%) y Medio-Bajo (28%). El tramo Alto (~10%) es similar en todos.
+        </p>
+
+        <footer class="text-center text-sm text-gray-500 mt-12 border-t border-gray-700 pt-6">
+            Fuente: Datos proporcionados por el usuario. Infografía generada por IA.
+        </footer>
+
+    </div>
+
+    <script>
+        // --- Datos de los Apostadores (Colores ajustados para tema oscuro) ---
+        const bettingData = {
+            aot: {
+                label: 'Total (AOT)',
+                // Azul brillante para AOT
+                color: 'rgba(96, 165, 250, 0.7)', // blue-400 con transparencia
+                borderColor: 'rgb(96, 165, 250)',
+                universe: 2.6,
+                demographics: {
+                    gender: { 'Masculino': 47.8, 'Femenino': 52.2 },
+                    age: { '18-24': 20.5, '25-34': 32.2, '35-44': 22.0, '45-54': 12.8, '55+': 12.6 },
+                    nse: { 'Alto': 24.6, 'Medio': 26.6, 'Bajo': 48.8 },
+                    location: { 'AMBA': 57.9, 'Resto': 42.1 },
+                    marital: { 'Soltero': 45.4, 'Casado': 23.0, 'En pareja': 23.3, 'Otro': (100 - 45.4 - 23.0 - 23.3).toFixed(1) }
+                },
+                education_employment: {
+                    education: { 'Primario': 3.1, 'Secundario': 45.8, 'Terciario/Univ.': 48.9, 'Posgrado': 1.7 },
+                    employment: { 'Trabaja': 80.0, 'No trabaja': 20.0 }
+                },
+                economics: {
+                    income: { '<195K': 23, '195K-488K': 26, '488K-1.46M': 40, '>1.46M': 10 }
+                }
+            },
+            aod: {
+                label: 'Deportes (AOD)',
+                // Azul Eléctrico / Cyan para AOD
+                color: 'rgba(34, 211, 238, 0.7)', // cyan-400 con transparencia
+                borderColor: 'rgb(34, 211, 238)',
+                universe: 1.7,
+                demographics: {
+                    gender: { 'Masculino': 54.3, 'Femenino': 45.7 },
+                    age: { '18-24': 22.0, '25-34': 35.1, '35-44': 19.3, '45-54': 11.4, '55+': 12.3 },
+                    nse: { 'Alto': 27.4, 'Medio': 26.9, 'Bajo': 45.7 },
+                    location: { 'AMBA': 60.5, 'Resto': 39.6 },
+                    marital: { 'Soltero': 45.6, 'Casado': 23.9, 'En pareja': 23.2, 'Otro': (100 - 45.6 - 23.9 - 23.2).toFixed(1) }
+                },
+                education_employment: {
+                    education: { 'Primario': 3.0, 'Secundario': 44.4, 'Terciario/Univ.': 50.5, 'Posgrado': 1.5 },
+                    employment: { 'Trabaja': 83.3, 'No trabaja': 16.7 }
+                },
+                economics: {
+                    income: { '<195K': 21, '195K-488K': 26, '488K-1.46M': 43, '>1.46M': 10 }
+                }
+            },
+            aoc: {
+                label: 'Casino (AOC)',
+                // Dorado para AOC
+                color: 'rgba(251, 191, 36, 0.7)', // yellow-400 con transparencia
+                borderColor: 'rgb(251, 191, 36)',
+                universe: 1.8,
+                demographics: {
+                    gender: { 'Masculino': 41.3, 'Femenino': 58.7 },
+                    age: { '18-24': 19.4, '25-34': 31.7, '35-44': 22.0, '45-54': 13.9, '55+': 13.0 },
+                    nse: { 'Alto': 21.3, 'Medio': 26.1, 'Bajo': 52.6 },
+                    location: { 'AMBA': 57.3, 'Resto': 42.7 },
+                    marital: { 'Soltero': 46.3, 'Casado': 21.9, 'En pareja': 22.4, 'Otro': (100 - 46.3 - 21.9 - 22.4).toFixed(1) }
+                },
+                education_employment: {
+                    education: { 'Primario': 3.3, 'Secundario': 46.8, 'Terciario/Univ.': 47.4, 'Posgrado': 1.9 },
+                    employment: { 'Trabaja': 76.5, 'No trabaja': 23.5 }
+                },
+                economics: {
+                     income: { '<195K': 26, '195K-488K': 28, '488K-1.46M': 37, '>1.46M': 10 }
+                }
+            }
+        };
+
+        // --- Opciones Comunes para Gráficos (Ajustadas para tema oscuro) ---
+        const commonChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%';
+                        },
+                        color: '#94a3b8' // Color de etiquetas eje Y (gris claro)
+                    },
+                    grid: {
+                        color: 'rgba(148, 163, 184, 0.2)' // Color de líneas de cuadrícula Y (gris claro transparente)
+                    }
+                },
+                x: {
+                     ticks: {
+                        color: '#94a3b8' // Color de etiquetas eje X (gris claro)
+                    },
+                    grid: {
+                        color: 'rgba(148, 163, 184, 0.1)' // Color de líneas de cuadrícula X (más sutil)
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    enabled: true,
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)', // Fondo tooltip
+                    titleColor: '#ffffff', // Color título tooltip
+                    bodyColor: '#e2e8f0', // Color cuerpo tooltip
+                    borderColor: 'rgba(255, 255, 255, 0.2)', // Borde tooltip
+                    borderWidth: 1,
+                    padding: 10,
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                // Usar toFixed(1) para consistencia con datos originales si tienen decimales
+                                label += parseFloat(context.parsed.y).toFixed(1) + '%';
+                            }
+                            return label;
+                        }
+                    }
+                },
+                legend: {
+                    position: 'top',
+                    labels: {
+                        color: '#e2e8f0' // Color texto leyenda (gris muy claro)
+                    }
+                },
+            }
+        };
+
+         // --- Función para crear Gráficos de Barras Agrupadas ---
+        function createGroupedBarChart(canvasId, dataKey, categoryKey) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            // Asegurarse que las claves 'Otro' en estado civil se calculen antes de obtener las etiquetas
+            if (categoryKey === 'marital') {
+                 Object.keys(bettingData).forEach(group => {
+                    const maritalData = bettingData[group][dataKey][categoryKey];
+                    const sum = Object.values(maritalData).reduce((acc, val) => acc + parseFloat(val || 0), 0) - parseFloat(maritalData['Otro'] || 0);
+                    maritalData['Otro'] = (100 - sum).toFixed(1);
+                 });
+            }
+
+            const labels = Object.keys(bettingData.aot[dataKey][categoryKey]);
+
+            // Destruir gráfico existente si lo hubiera (para evitar problemas en recargas)
+            let existingChart = Chart.getChart(canvasId);
+            if (existingChart) {
+                existingChart.destroy();
+            }
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: bettingData.aot.label,
+                            data: Object.values(bettingData.aot[dataKey][categoryKey]).map(v => parseFloat(v)), // Asegurar que sean números
+                            backgroundColor: bettingData.aot.color,
+                            borderColor: bettingData.aot.borderColor,
+                            borderWidth: 1,
+                            borderRadius: 4, // Bordes redondeados en barras
+                        },
+                        {
+                            label: bettingData.aod.label,
+                            data: Object.values(bettingData.aod[dataKey][categoryKey]).map(v => parseFloat(v)),
+                            backgroundColor: bettingData.aod.color,
+                            borderColor: bettingData.aod.borderColor,
+                            borderWidth: 1,
+                             borderRadius: 4,
+                        },
+                        {
+                            label: bettingData.aoc.label,
+                            data: Object.values(bettingData.aoc[dataKey][categoryKey]).map(v => parseFloat(v)),
+                            backgroundColor: bettingData.aoc.color,
+                            borderColor: bettingData.aoc.borderColor,
+                            borderWidth: 1,
+                             borderRadius: 4,
+                        }
+                    ]
+                },
+                options: commonChartOptions
+            });
+        }
+
+        // --- Crear los Gráficos ---
+        // Demografía
+        createGroupedBarChart('genderChart', 'demographics', 'gender');
+        createGroupedBarChart('ageChart', 'demographics', 'age');
+        createGroupedBarChart('nseChart', 'demographics', 'nse');
+        createGroupedBarChart('locationChart', 'demographics', 'location');
+        createGroupedBarChart('maritalChart', 'demographics', 'marital');
+
+        // Educación y Empleo
+        createGroupedBarChart('educationChart', 'education_employment', 'education');
+        createGroupedBarChart('employmentChart', 'education_employment', 'employment');
+
+        // Economía
+        createGroupedBarChart('incomeChart', 'economics', 'income');
+
+    </script>
+
+</body>
+</html>
